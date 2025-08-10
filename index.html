@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naveen Jewellers - विशेष इनाम</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans Devanagari', Arial, sans-serif;
+            background: linear-gradient(135deg, #632f24 0%, #8b4513 50%, #632f24 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+        
+        .logo-container {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 10;
+        }
+        
+        .logo-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid #ffde59;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            margin: 0 auto 15px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .logo-placeholder {
+            width: 80px;
+            height: 80px;
+            background: #632f24;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffde59;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        
+        .logo-text {
+            color: white;
+            font-size: 18px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            letter-spacing: 1px;
+        }
+        
+        .main-container {
+            text-align: center;
+            margin-top: 180px;
+            position: relative;
+        }
+        
+        .surprise-button {
+            background: linear-gradient(45deg, #ffde59, #ffd700);
+            border: none;
+            border-radius: 50px;
+            padding: 20px 40px;
+            font-size: 24px;
+            font-weight: 700;
+            color: #632f24;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transform: scale(1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .surprise-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+        
+        .surprise-button:active {
+            transform: scale(0.98);
+        }
+        
+        .button-shine {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .surprise-button:hover .button-shine {
+            left: 100%;
+        }
+        
+        .surprise-container {
+            display: none;
+            margin-top: 30px;
+            animation: slideUp 0.8s ease-out;
+        }
+        
+        .surprise-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+            border: 3px solid #ffde59;
+            max-width: 400px;
+            margin: 0 auto;
+            transform: rotate(0deg);
+            animation: cardAppear 1s ease-out;
+        }
+        
+        .surprise-title {
+            color: #632f24;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            animation: textGlow 2s infinite alternate;
+        }
+        
+        .surprise-text {
+            color: #632f24;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            line-height: 1.4;
+        }
+        
+        .coin-animation {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, #c0c0c0, #e6e6e6, #c0c0c0);
+            border-radius: 50%;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #632f24;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            animation: coinSpin 2s linear infinite;
+            border: 3px solid #ffde59;
+        }
+        
+        .download-button {
+            background: #632f24;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .download-button:hover {
+            background: #7d3d2f;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+        
+        .fireworks {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+        
+        .firework {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #ffde59;
+            border-radius: 50%;
+            animation: fireworkExplode 1.5s ease-out forwards;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes cardAppear {
+            0% {
+                opacity: 0;
+                transform: scale(0.5) rotate(-10deg);
+            }
+            70% {
+                transform: scale(1.05) rotate(2deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+        
+        @keyframes textGlow {
+            from {
+                text-shadow: 0 0 5px #ffde59;
+            }
+            to {
+                text-shadow: 0 0 20px #ffde59, 0 0 30px #ffde59;
+            }
+        }
+        
+        @keyframes coinSpin {
+            from {
+                transform: rotateY(0deg);
+            }
+            to {
+                transform: rotateY(360deg);
+            }
+        }
+        
+        @keyframes fireworkExplode {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(20);
+            }
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        #downloadCanvas {
+            display: none;
+        }
+        
+        @media (max-width: 480px) {
+            .logo-circle {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .logo-placeholder {
+                width: 65px;
+                height: 65px;
+                font-size: 20px;
+            }
+            
+            .logo-text {
+                font-size: 16px;
+            }
+            
+            .surprise-button {
+                font-size: 20px;
+                padding: 15px 30px;
+            }
+            
+            .surprise-card {
+                margin: 0 20px;
+                padding: 25px;
+            }
+            
+            .surprise-title {
+                font-size: 24px;
+            }
+            
+            .surprise-text {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-container">
+        <div class="logo-circle">
+            <div class="logo-placeholder">NJ</div>
+        </div>
+        <div class="logo-text">Naveen Jewellers</div>
+    </div>
+    
+    <div class="main-container">
+        <button class="surprise-button" onclick="revealSurprise()">
+            <span class="button-shine"></span>
+            सरप्राइज़ खोलें! 🎁
+        </button>
+        
+        <div class="surprise-container" id="surpriseContainer">
+            <div class="surprise-card">
+                <div class="surprise-title">🎉 बधाई हो! 🎉</div>
+                <div class="coin-animation">Silver<br>Coin</div>
+                <div class="surprise-text">
+                    आपने जीता है एक सिल्वर कॉइन<br>
+                    ₹1 लाख की खरीदारी पर!
+                </div>
+                <button class="download-button" onclick="downloadImage()">
+                    इमेज डाउनलोड करें 📥
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="fireworks" id="fireworks"></div>
+    
+    <canvas id="downloadCanvas" width="800" height="600"></canvas>
+    
+    <script>
+        function revealSurprise() {
+            // Hide button
+            document.querySelector('.surprise-button').style.display = 'none';
+            
+            // Show surprise
+            const surpriseContainer = document.getElementById('surpriseContainer');
+            surpriseContainer.style.display = 'block';
+            
+            // Create fireworks
+            createFireworks();
+            
+            // Play celebration sound (if we had audio)
+            console.log('🎉 Surprise revealed!');
+        }
+        
+        function createFireworks() {
+            const fireworksContainer = document.getElementById('fireworks');
+            
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const firework = document.createElement('div');
+                    firework.className = 'firework';
+                    firework.style.left = Math.random() * window.innerWidth + 'px';
+                    firework.style.top = Math.random() * window.innerHeight + 'px';
+                    firework.style.background = ['#ffde59', '#632f24', '#ff6b6b', '#4ecdc4', '#45b7d1'][Math.floor(Math.random() * 5)];
+                    
+                    fireworksContainer.appendChild(firework);
+                    
+                    setTimeout(() => {
+                        firework.remove();
+                    }, 1500);
+                }, i * 100);
+            }
+        }
+        
+        function downloadImage() {
+            const canvas = document.getElementById('downloadCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Background gradient
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            gradient.addColorStop(0, '#632f24');
+            gradient.addColorStop(0.5, '#8b4513');
+            gradient.addColorStop(1, '#632f24');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Border
+            ctx.strokeStyle = '#ffde59';
+            ctx.lineWidth = 8;
+            ctx.strokeRect(20, 20, canvas.width - 40, canvas.height - 40);
+            
+            // Logo circle
+            ctx.fillStyle = 'white';
+            ctx.beginPath();
+            ctx.arc(400, 120, 60, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.strokeStyle = '#ffde59';
+            ctx.lineWidth = 4;
+            ctx.stroke();
+            
+            // Logo text in circle
+            ctx.fillStyle = '#632f24';
+            ctx.font = 'bold 24px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('NJ', 400, 130);
+            
+            // Naveen Jewellers text
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 28px Arial';
+            ctx.fillText('Naveen Jewellers', 400, 200);
+            
+            // Main congratulations text
+            ctx.fillStyle = '#ffde59';
+            ctx.font = 'bold 48px Arial';
+            ctx.fillText('🎉 बधाई हो! 🎉', 400, 280);
+            
+            // Silver coin circle
+            const coinGradient = ctx.createRadialGradient(400, 350, 0, 400, 350, 50);
+            coinGradient.addColorStop(0, '#e6e6e6');
+            coinGradient.addColorStop(0.7, '#c0c0c0');
+            coinGradient.addColorStop(1, '#a0a0a0');
+            ctx.fillStyle = coinGradient;
+            ctx.beginPath();
+            ctx.arc(400, 350, 50, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.strokeStyle = '#ffde59';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+            
+            // Coin text
+            ctx.fillStyle = '#632f24';
+            ctx.font = 'bold 16px Arial';
+            ctx.fillText('Silver Coin', 400, 355);
+            
+            // Prize text
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 32px Arial';
+            ctx.fillText('आपने जीता है एक सिल्वर कॉइन', 400, 450);
+            ctx.font = 'bold 28px Arial';
+            ctx.fillText('₹1 लाख की खरीदारी पर!', 400, 490);
+            
+            // Footer text
+            ctx.fillStyle = '#ffde59';
+            ctx.font = 'bold 20px Arial';
+            ctx.fillText('धन्यवाद - Naveen Jewellers', 400, 550);
+            
+            // Download the image
+            const link = document.createElement('a');
+            link.download = 'naveen-jewellers-silver-coin-prize.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+        
+        // Add some sparkle effect to the page
+        setInterval(() => {
+            if (Math.random() < 0.3) {
+                const sparkle = document.createElement('div');
+                sparkle.style.position = 'absolute';
+                sparkle.style.width = '4px';
+                sparkle.style.height = '4px';
+                sparkle.style.background = '#ffde59';
+                sparkle.style.borderRadius = '50%';
+                sparkle.style.left = Math.random() * window.innerWidth + 'px';
+                sparkle.style.top = Math.random() * window.innerHeight + 'px';
+                sparkle.style.animation = 'fireworkExplode 2s ease-out forwards';
+                sparkle.style.pointerEvents = 'none';
+                sparkle.style.zIndex = '1';
+                
+                document.body.appendChild(sparkle);
+                
+                setTimeout(() => {
+                    sparkle.remove();
+                }, 2000);
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

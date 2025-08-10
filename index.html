@@ -51,7 +51,7 @@
         .logo-placeholder {
             width: 80px;
             height: 80px;
-            background: url('nj_logo.jpg') center/cover;
+            background: url('./nj_logo.jpg') center/cover;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -59,6 +59,10 @@
             color: #ffde59;
             font-weight: bold;
             font-size: 24px;
+        }
+        
+        .logo-placeholder.fallback {
+            background: #632f24;
         }
         
         .logo-placeholder.fallback {
@@ -467,7 +471,19 @@
             link.click();
         }
         
-        // Add some sparkle effect to the page
+        // Check if logo image loads, otherwise show fallback
+        const logoPlaceholder = document.getElementById('logoPlaceholder');
+        const logoImg = new Image();
+        logoImg.onload = function() {
+            logoPlaceholder.style.backgroundImage = 'url(./nj_logo.jpg)';
+            logoPlaceholder.innerHTML = ''; // Remove "NJ" text
+        };
+        logoImg.onerror = function() {
+            logoPlaceholder.classList.add('fallback');
+            logoPlaceholder.innerHTML = 'NJ'; // Keep "NJ" text as fallback
+            console.log('Logo not found, using fallback');
+        };
+        logoImg.src = './nj_logo.jpg';
         setInterval(() => {
             if (Math.random() < 0.3) {
                 const sparkle = document.createElement('div');

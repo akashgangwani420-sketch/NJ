@@ -159,8 +159,8 @@
         .coin-animation {
             width: 100px;
             height: 100px;
-            background: linear-gradient(45deg, #ffde59, #ffd700, #ffde59);
-            border-radius: 15px;
+            background: linear-gradient(45deg, #c0c0c0, #e6e6e6, #c0c0c0);
+            border-radius: 50%;
             margin: 20px auto;
             display: flex;
             align-items: center;
@@ -169,14 +169,13 @@
             font-weight: bold;
             color: #632f24;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            animation: couponFloat 3s ease-in-out infinite;
-            border: 3px solid #632f24;
+            animation: coinSpin 2s linear infinite;
+            border: 3px solid #ffde59;
             position: relative;
-            overflow: hidden;
         }
         
         .coin-animation::before {
-            content: '🎫';
+            content: '🥈';
             font-size: 40px;
             position: absolute;
             top: 50%;
@@ -256,12 +255,12 @@
             }
         }
         
-        @keyframes couponFloat {
-            0%, 100% {
-                transform: translateY(0px) rotate(0deg);
+        @keyframes coinSpin {
+            from {
+                transform: rotateY(0deg);
             }
-            50% {
-                transform: translateY(-10px) rotate(2deg);
+            to {
+                transform: rotateY(360deg);
             }
         }
         
@@ -339,11 +338,11 @@
                 <div class="surprise-title">🎉 बधाई हो! 🎉</div>
                 <div class="coin-animation">Silver<br>Coin</div>
                 <div class="surprise-text">
-                    आपको मिला है विशेष छूट कूपन<br>
-                    ₹1 लाख की खरीदारी पर 10% छूट!
+                    आपने जीता है एक सिल्वर कॉइन<br>
+                    ₹1 लाख की खरीदारी पर!
                 </div>
                 <button class="download-button" onclick="downloadCoupon()">
-                    कूपन डाउनलोड करें 🎫
+                    इमेज डाउनलोड करें 🏆
                 </button>
             </div>
         </div>
